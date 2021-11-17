@@ -1,3 +1,4 @@
+# pocita pravdepodobnost vice pokusu s 50 % uspesnosti
 from random import randint
 from random import seed
 from random import choice
