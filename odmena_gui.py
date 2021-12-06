@@ -1,3 +1,4 @@
+# odměna advokáta v gui, nefunkční
 import os
 import sys
 import math
