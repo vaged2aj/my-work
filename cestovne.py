@@ -1,3 +1,5 @@
+# počítá cestovné podle zákoníku práce, hodnoty napevno
+
 import time
 #import module
 import locale
