@@ -1,3 +1,4 @@
+# počítá odměnu advokáta
 import sys
 import math
 import time
