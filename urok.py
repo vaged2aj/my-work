@@ -1,3 +1,4 @@
+# stupidni program na vypocet uroku
 import sys
 import math
 import time
