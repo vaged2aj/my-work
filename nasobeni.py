@@ -1,3 +1,4 @@
+# násobení a odečítání zpaměti po dobu 30 minut, s objektem, výsledek do xml (statistika) a z něho textový výstup do txt  
 from random import randint
 from random import seed
 import time
