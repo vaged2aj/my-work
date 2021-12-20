@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Solution</title>
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+
+ 
+      article {
+        padding: 10px;
+        margin: 10px;
+        background: aqua;
+	width: 30%;
+	border-radius: 10px;
+      }
+      form {
+        padding: 10px;
+        margin: 10px;
+        background: lightgray;
+	width: 30%;
+	border-radius: 10px;
+      }
+ h1 , h2 {
+	      margin: 10px;
+      }
+
+      /* Add your flexbox CSS below here */
+
+
+      
+    </style>
+    <script>
+	    function tarif(tarifniH){
+				// spocita vysi odmeny z tarifni hodnoty //
+		if (tarifniH <= 500){
+			return 300;
+				    }
+		else if (tarifniH <= 1000){
+			return 500;
+				    }
+		else if (tarifniH <=5000){
+			return 1000;
+							}
+		else if (tarifniH <=10000){
+			return 1500;
+											    }
+		else if (tarifniH <= 200000){
+			return 1500+Math.ceil((tarifniH-10000)/1000)*40;
+												}
+		else if (tarifniH <= 10000000) {
+			return 9100+Math.ceil((tarifniH-200000)/10000)*40;
+												    }
+		else if (tarifniH > 10000000) {
+			return 48300+Math.ceil((tarifniH-10000000)/100000)*40;
+																	}
+		}
+
+	    function getter() {
+				
+		    tarifniH = document.getElementById("tarifniHF").value; 
+		    pocetU = document.getElementById("pocetUF").value;
+		    cestovne = document.getElementById("cestovneF").value;
+			sopTrueFalse = document.getElementById("sopCheckBox").checked;
+			PRTrueFalse = document.getElementById("PR").checked;
+			EPRTrueFalse = document.getElementById("EPR").checked;
+			cestovne = parseInt(document.getElementById("cestovneF").value);
+			sopfunction()
+				celkemfunction()
+			} 
+
+	    function odmena(pocetUkonu,tarifniH) {
+				// spocita odmenu podle AT, potrbuje pocet ukonu, tarifni hodnotu//
+				return pocetUkonu*tarif(tarifniH);
+			}
+	    function sopfunction() {
+				if (sopTrueFalse === true){
+				    if (PRTrueFalse === true) {
+							sop = parseInt(soudnipopl(tarifniH));}
+				    else {
+
+						sop = parseInt(soudnipopl(tarifniH,true));
+						}}
+			    else {
+						sop = 0;
+					}
+							console.log(typeof(sop));
+					    }
+	    function celkemfunction() {
+				celkem = 1.21*(odmena(pocetU,tarifniH)+pocetU*300+cestovne)+sop;
+			console.log(celkem, typeof(celkem))}
+	    
+
+	    function vysledek() {
+				getter()
+			document.getElementById("pocetUV").innerHTML = "Počet úkonů: "+ pocetU; 
+				document.getElementById("odmenaV").innerHTML = "Odměna: "+odmena(pocetU,tarifniH);
+			document.getElementById("cestovneV").innerHTML ="Cestovné: "
+			document.getElementById("pausalV").innerHTML ="Počet úkonů: "+pocetU*300;
+			document.getElementById("dphV").innerHTML ="DPH: "+0.21*(odmena(pocetU,tarifniH)+pocetU*300);
+				if (sopTrueFalse === true){
+						    if (PRTrueFalse === true) {
+			document.getElementById("sopV").innerHTML = "SOP: "+soudnipopl(tarifniH);
+					    }
+						    else {
+			document.getElementById("sopV").innerHTML = "SOP: "+soudnipopl(tarifniH,true);
+
+								}
+	    }
+			document.getElementById("cestovneV").innerHTML ="Cestovné: "+cestovne;
+			document.getElementById("celkemV").innerHTML ="Celkem: "+celkem;
+			}
+		function soudnipopl(x,y=false){
+	    if (y === true){
+		    if (x <= 10000){
+					return 400;
+				}
+		else if (x <= 20000){
+                        return 800;
+						    }
+			
+	    else { 
+                        return int(round(0.04*math.ceil(x/10)*10,0));
+	    }
+			}
+	    else {
+		    if (x <= 20000){
+                        return 1000;
+									}
+		else{
+		    return int(round(0.05*math.ceil(x/10)*10,0));}
+			}
+	    }
+	   
+
+function kvadrat() {
+		    var a = document.getElementById("prvni").value; 
+		    var b = document.getElementById("druha").value;
+		    var c = document.getElementById("treti").value;
+		    console.log(a,b,c);
+  var delta;
+  delta = b**2-4*a*c;
+  var myarray;
+		    myarray = [a,b,c]
+  var d;
+  d = ((-b+Math.sqrt(delta)/2*a));
+ 
+  
+  if (delta >= 0){
+		      console.log(myarray);
+ myarray[3] = d;
+
+  } else {
+    myarray[3]="Záporný diskriminant. Rovnice nemá řešení.";
+  }
+return myarray
+}
+function clickBait(){
+	document.getElementById("Solution").innerHTML = kvadrat()[3];
+		    document.getElementById("Eq").innerHTML = kvadrat()[0]+"x<sup>2</sup> + "+kvadrat()[1]+"x + " + kvadrat()[2];
+	    }
+
+function nactiNahodneC() {
+	nahodne = Math.round(10*Math.random(),0);
+		    console.log(nahodne);
+	    }
+
+	    function zkus(nahodne){
+	let s = nahodne;
+	var a = document.getElementById("tip").value; 
+		    console.log("a: "+a+", s: "+s)
+	    if (a>s){
+	document.getElementById("minvic").innerHTML = "Min";
+			}
+	    else if (a<s){
+	document.getElementById("minvic").innerHTML = "Vic";
+			}
+				else { 
+document.getElementById("minvic").innerHTML = "Spravne";
+					    }			
+	    }
+
+    </script>
+  </head>
+  <body>
+      <h1>Odměna advokáta</h1>
+      <h2>Zadat údaje:</h2>
+    <form>
+	    <label for="prvni">Tarifní hodnota</label><br>
+	    <input type="text" id="tarifniHF" ><br>
+	    <label for="druha">Počet úkonů</label><br>
+	    <input type="text" id="pocetUF" ><br>
+	    <label for="prvni">SOP?</label>
+	    <input type="checkbox" id="sopCheckBox" ><br>
+	    <input type="radio" name="radio" id="PR" >
+	    <label for="PR">PR</label>
+	    <input type="radio" name="radio" id="EPR" >
+	    <label for="EPR">EPR</label><br>
+	    <label for="treti">Cestovné</label><br>
+	    <input type="text" id="cestovneF" >
+    </form>
+    <section>
+      <h2>Výsledek:</h2>
+      <article>
+	<p id="pocetUV">Počet úkonů:</p>
+	<p id="odmenaV">Odměna:</p>
+	<p id="pausalV">Paušál:</p>
+	<p id="dphV">DPH:</p>
+	<p id="cestovneV">cestovné:</p>
+	<p id="sopV">SOP:</p>
+	<p id="celkemV">celkem:</p>
+	<button onclick="vysledek()">Spočítat výsledek</button>
+      </article>
+
+   </section>
+ </body>
+</html>
