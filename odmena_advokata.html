@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>§§§ Odměna advokáta §§§</title>
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+
+ 
+      article {
+        padding: 10px;
+        margin: 10px;
+        background: aqua;
+	width: 35%;
+	min-width: 600px;
+	border-radius: 10px;
+      }
+      form {
+        padding: 10px;
+        margin: 10px;
+        background: lightgray;
+	width: 35%;
+	min-width: 600px;
+	border-radius: 10px;
+	line-height: 200%;
+      }
+ h1 , h2 {
+	      margin: 10px;
+      }
+ .vysledky {text-align: right;
+ padding-left: 20px;
+ }
+
+ #celkemV {font-weight:bold;)
+	 table {border: 1px solid black;}
+      /* Add your flexbox CSS below here */
+
+
+      
+    </style>
+    <script>
+	    function tarif(tarifniH){
+				// spocita vysi odmeny z tarifni hodnoty //
+		if (tarifniH == 0){
+				    return 0;
+			    }
+		else if (tarifniH <= 500){
+			return 300;
+				    }
+		else if (tarifniH <= 1000){
+			return 500;
+				    }
+		else if (tarifniH <=5000){
+			return 1000;
+							}
+		else if (tarifniH <=10000){
+			return 1500;
+											    }
+		else if (tarifniH <= 200000){
+			return 1500+Math.ceil((tarifniH-10000)/1000)*40;
+												}
+		else if (tarifniH <= 10000000) {
+			return 9100+Math.ceil((tarifniH-200000)/10000)*40;
+												    }
+		else if (tarifniH > 10000000) {
+			return 48300+Math.ceil((tarifniH-10000000)/100000)*40;
+																	}
+		}
+
+	    function getter() {
+				
+		    tarifniH = document.getElementById("tarifniHF").value; 
+		    pocetU = document.getElementById("pocetUF").value;
+		        sopTrueFalse = document.getElementById("sopCheckBox").checked;
+		        console.log("sopTrueFalse: ",sopTrueFalse)
+			PRTrueFalse = document.getElementById("PR").checked;
+			EPRTrueFalse = document.getElementById("EPR").checked;
+			vlastniSopTrueFalse = document.getElementById("vlastni").checked;
+			snizeniVal = document.getElementById("snizeni").checked;
+				ztratovyVal = document.getElementById("ztrata").value;
+			ztrataVysl =	ztratovycas();
+			cestovneFunction();
+			sopfunction();
+			pausal();
+				console.log("abc"+pocetU)
+			celkemfunction();
+			
+			} 
+
+		function cestovneFunction() {
+		console.log("cestovne:1 ");
+		if (document.getElementById("cestovneF").value) {
+		cestovne = parseInt(document.getElementById("cestovneF").value);								
+		
+		}
+		else {
+		cestovne = 0;
+		}
+		}
+
+	    function pausal() {
+				if (pocetU){
+						    console.log(pocetU+"pocetU")
+						    rozpisPausal = "tj. "+pocetU+" x "+koruna.format(300);
+						    return pocetU*300;
+					    }
+				else {
+				    pocetU = 0;
+				    rozpisPausal = "tj. 0 x "+koruna.format(300);
+				    return 0;
+					    }} 
+
+	    function ztratovycas() {
+				if (ztratovyVal) {
+						 return ztratovyVal*100;
+					    }
+				else {
+						    return 0
+					    }}
+	    function snizeni(x) {
+				let b = 0.8*x;
+			if (b>5000) {
+					    b = 5000;}
+		    return b;
+			}
+
+	    function odmena(pocetUkonu,tarifniH) {
+				// spocita odmenu podle AT, potrbuje pocet ukonu, tarifni hodnotu//
+
+				if (snizeniVal) {
+						    rozpisOdmena = "tj. "+pocetUkonu+" x "+koruna.format(snizeni(tarif(tarifniH)));
+				return pocetUkonu*snizeni(tarif(tarifniH));
+			}
+				else {
+
+				rozpisOdmena = "tj. "+pocetUkonu+" x "+koruna.format(tarif(tarifniH));
+				return pocetUkonu*tarif(tarifniH);
+					    }}
+
+	    function sopfunction() {
+
+									console.log("sop:1 ");
+				if (sopTrueFalse){
+
+									console.log("sop:1a ");
+				    if (PRTrueFalse) {
+							sop = parseInt(soudnipopl(tarifniH));
+									console.log("sop:2 ");
+
+	}			    else if (EPRTrueFalse) {
+
+						sop = parseInt(soudnipopl(tarifniH,true));
+									console.log("sop:3 ");
+
+						}
+						    else if (vlastniSopTrueFalse) {
+									if (document.getElementById("vlastniF").value){
+											    
+									sop = parseInt(document.getElementById("vlastniF").value);
+									console.log("sop:4 ");
+								}
+									else {
+											    sop = 0;
+										    }
+								}}
+			    else {
+						sop = 0;
+						console.log("sop:5 ")
+					}
+					    
+			}
+
+	    function celkemfunction() {
+				celkem = 1.21*(odmena(pocetU,tarifniH)+pocetU*300+parseInt(cestovne)+ztratovycas())+sop;
+		}
+	    
+
+	    var koruna = new Intl.NumberFormat('cs-CZ',{style: 'currency', currency: 'CZK',});
+	    function vysledek() {
+			getter()
+			document.getElementById("pocetUV").innerHTML = pocetU; 
+				document.getElementById("odmenaV").innerHTML = koruna.format(odmena(pocetU,tarifniH));
+			document.getElementById("pausalV").innerHTML =koruna.format(pocetU*300);
+			document.getElementById("dphV").innerHTML =koruna.format(0.21*(odmena(pocetU,tarifniH)+pocetU*300+pausal()+cestovne));
+			document.getElementById("sopV").innerHTML = koruna.format(sop);
+			document.getElementById("cestovneV").innerHTML =koruna.format(cestovne);
+			document.getElementById("celkemV").innerHTML =koruna.format(celkem);
+			document.getElementById("rozpisOdmenaV").innerHTML =rozpisOdmena;
+			document.getElementById("rozpispausalV").innerHTML =rozpisPausal;
+			document.getElementById("ztratovyV").innerHTML =koruna.format(ztrataVysl);
+			}
+		function soudnipopl(x,y=false){
+	    if (y === true){
+		    if (x <= 10000){
+					return 400;
+				}
+		else if (x <= 20000){
+                        return 800;
+						    }
+			
+	    else { 
+                        return parseInt(Math.round(0.04*Math.ceil(x/10)*10,0));
+	    }
+			}
+	    else {
+		    if (x <= 20000){
+                        return 1000;
+									}
+		else{
+		    return parseInt(Math.round(0.05*Math.ceil(x/10)*10,0));}
+			}
+	    }
+	   
+
+
+
+    </script>
+  </head>
+  <body>
+      <h1>Odměna advokáta</h1>
+      <h2>Zadat údaje:</h2>
+    <form>
+	    <table>
+		    <tr><td>
+				    <label for="prvni">Tarifní hodnota:</label></td><td>
+				    <input type="number" min="0" id="tarifniHF" required ></td>
+			    <td><label for="snizeni">Snížení podle §12a AT?</label>
+				    <input type="checkbox" id="snizeni" ></td>
+		    </tr>
+		    <tr>
+			    <td>
+				    <label for="druha">Počet úkonů:</label></td><td>
+				    <input type="number" min="0" id="pocetUF" ></td></td>
+		    <td>
+			    <tr>
+				    <td>
+				    <label for="prvni">SOP?</label>
+				    
+					    <input type="checkbox" id="sopCheckBox" ></td></tr>
+			    <tr>
+				    <td>
+	    <input type="radio" name="radio" id="PR" checked="checked" >
+	    <label for="PR">PR</label>
+	    <input type="radio" name="radio" id="EPR" >
+	    <label for="EPR">EPR</label></td>
+				    <td></td><td>
+	    <input type="radio" name="radio" id="vlastni" >
+	    <label for="vlastni">vlastní</label>
+	    <input type="number" min="0" id="vlastniF" ></td></tr>
+			    <tr>
+				    <td>
+					    <label for="treti">Cestovné:</label></td>
+				    <td>	    <input type="number"min="0"  id="cestovneF" ></td></tr>
+			    <tr><td>
+				    <label for="ztrata">Ztrátový čas 1/2h: </label></td><td>
+				    <input type="number" min="0"  id="ztrata"></td><tr>
+	    </table>
+    </form>
+    <section>
+      <h2>Výsledek:</h2>
+      <article>
+      <table>
+	<tr>
+		<td >Počet úkonů:</td><td class="vysledky" id="pocetUV"></td>
+	</tr>
+	<tr>
+		<td> Odměna:</td><td class="vysledky" id="odmenaV"></td><td class="vysledky" id="rozpisOdmenaV"></td>
+	</tr>
+	<tr>
+	<td>Paušál:</td><td class="vysledky" id="pausalV"></td><td class="vysledky" id="rozpispausalV"></td>
+
+	</tr>	
+	<tr>
+	<td>cestovné:</td><td class="vysledky" id="cestovneV"></td>
+
+	</tr>
+	<tr>
+		<td>Ztrátový čas:</td><td class="vysledky" id="ztratovyV"></td>
+	<tr>
+	<td>DPH:</td><td class="vysledky" id="dphV"></td>
+
+	</tr>
+	<tr>
+	<td>SOP:</td><td class="vysledky" id="sopV"></td>
+
+	</tr>
+	<tr>
+	<td>celkem:</td><td class="vysledky" id="celkemV"></td>
+
+	</tr>
+      </table>
+	<button onclick="vysledek()">Spočítat výsledek</button>
+      </article>
+
+   </section>
+ </body>
+</html>
