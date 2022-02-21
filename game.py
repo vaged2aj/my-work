@@ -37,35 +37,7 @@ class Test(game_module.App): # App also on my Github
          self.yellow = (255,255,0) # >16
          self.test = [1,1,2]
          self.pop_list = []
-         self.move_arr_u = [
-                 [
-                     [1,4,2],[1,1,2]
-                     ],
-                 [
-                 [4,4,2],[4,1,2]
-                 ]
-                 ]
-         self.move_arr_l = [
-                 [
-                     [3,1,2],[1,1,2]
-                     ],
-                 [
-                     [4,4,2],[2,4,2]
-                     ],
-                 [
-                     [2,3,2],[3,3,2]
-                     ],
-                 [
-                     [3,2,2],[1,2,2]
-                     ]
-                 ]
-         self.move_arr = [
-                 [[1,1,2],[3,1,2]],
-                 [[3,2,2],[4,2,2]],
-                 [[1,3,2],[4,3,2]],
-   [                  [1,4,2],[3,4,2]]
-                 
-                 ]
+       
          
     
 
@@ -356,22 +328,7 @@ class Test(game_module.App): # App also on my Github
                             tile[2] *=2
         return row
             
-    def detectionbckp(self,row,direction):
-        ''' row  = row or column'''
-        if direction == 0:
-            for f in range(len(row)-2):
-                if len(row)>1:
-                    if row[f][2] == row[f+1][2]:
-                        row[f][2] *= 2
-                        row.remove(row[f+1])
-        if direction == 1:
-            for f in range(len(row)-2):
-                if len(row)>1:
-                    if row[f][2] == row[f+1][2]:
-                        row[f+1][2] *= 2
-                        row.remove(row[f])
-
-        return row
+  
 
 
     def new_move(self,direction):
@@ -420,14 +377,7 @@ class Test(game_module.App): # App also on my Github
             self.draw_one_static(i)
         pygame.display.flip() 
     
-    def draw_one_static_for_animation(self,coord,number,color,offset = 0,ratio=1,direction = "left"):
-        mez_a= coord[0]*self.mezera
-        mez_b = coord[1]*self.mezera  
-        rozmer_dlazd = self.tile*ratio
-        a = coord[0]*self.tile+mez_a+self.mezera+0.5*self.tile-0.5*rozmer_dlazd
-        b = coord[1]*self.tile+mez_b+self.mezera+0.5*self.tile-0.5*rozmer_dlazd-offset
-        pygame.draw.rect(self.screen,color,pygame.rect(a,b,rozmer_dlazd,rozmer_dlazd)) 
-        self.number(coord,number)
+    
 
     def draw_one_static_nonum(self,coord,number,color,ratio=1):
         mez_a= coord[0]*self.mezera
