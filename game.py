@@ -16,7 +16,7 @@ from pygame.locals import *
         
  
 
-class Test(game_module.App):
+class Test(game_module.App): # App also on my Github
     white = (255,255,255)
 #    yellow = (255,255,0) # >16
     green = (0,255,0) # 16
