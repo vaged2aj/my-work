@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Feb  8 12:24:29 2022
-game of 2048 with rudimentary animation, with pygame
+
 @author: Dalibor
 """
 
@@ -16,7 +16,7 @@ from pygame.locals import *
         
  
 
-class Test(game_module.App): # App also on my Github
+class Test(game_module.App):
     white = (255,255,255)
 #    yellow = (255,255,0) # >16
     green = (0,255,0) # 16
@@ -30,16 +30,10 @@ class Test(game_module.App): # App also on my Github
          super().__init__()
          self.changes = []
          self.my_grid = []
-#         self.my_grid = [[1,2,2],[2,2,2],[3,2,2],[4,2,4]]
-#         self.my_grid = [[1,1,2],[2,1,2],[3,1,2],[4,1,4],[1,2,4],[1,3,4],[3,2,16],[1,4,32],[3,3,4],[4,4,8]]
-         #print(self.my_grid,35)
          self.array = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
-         self.yellow = (255,255,0) # >16
+         self.yellow = (255,255,0) 
          self.test = [1,1,2]
          self.pop_list = []
-       
-         
-    
 
     def random_tile_inov(self):
         full_list = []
@@ -216,7 +210,6 @@ class Test(game_module.App): # App also on my Github
 
 
     def logic(self,list_of_tiles,direction):
-        #print(list_of_tiles,direction,246)
         abc = self.test_rows(list_of_tiles)
         cde = self.test_columns(list_of_tiles)
         new_list = []
@@ -235,7 +228,6 @@ class Test(game_module.App): # App also on my Github
                 working_row = []
                 for tile in row:
                     new_list.append(tile)
-#                print(new_list,262)
         elif direction ==1:
             for row in abc:
                 working_row = copy.deepcopy(row)
@@ -248,7 +240,6 @@ class Test(game_module.App): # App also on my Github
                 working_row = []
                 for tile in row:
                     new_list.append(tile)
-#                print(new_list,278)
         elif direction == 2:
             for row in cde:
                 working_row = copy.deepcopy(row)
@@ -328,16 +319,12 @@ class Test(game_module.App): # App also on my Github
                             tile[2] *=2
         return row
             
-  
-
-
     def new_move(self,direction):
         abc = self.logic(self.my_grid,direction)
         self.my_grid = self.detection_wrapper(self.my_grid,direction)
         abc = self.logic(self.my_grid,direction)
         self.my_grid = abc[0]
         self.engine(abc[1],direction)        
-#        self.refresh_background()
         self.draw_grid_test(self.my_grid)
         pygame.time.wait(500)
         self.random_tile_inov()
@@ -377,35 +364,9 @@ class Test(game_module.App): # App also on my Github
             self.draw_one_static(i)
         pygame.display.flip() 
     
+    def refresh_tile(self):
+        pass
     
-
-    def draw_one_static_nonum(self,coord,number,color,ratio=1):
-        mez_a= coord[0]*self.mezera
-        mez_b = coord[1]*self.mezera  
-        rozmer_dlazd = self.tile*ratio
-        if ratio < 1 or ratio > 1:
-            a = coord[0]*self.tile+mez_a+self.mezera+0.5*self.tile-0.5*rozmer_dlazd
-            b = coord[1]*self.tile+mez_b+self.mezera+0.5*self.tile-0.5*rozmer_dlazd
-        else:            
-            a = coord[0]*self.tile+mez_a+self.mezera
-            b = coord[1]*self.tile+mez_b+self.mezera
-        pygame.draw.rect(self.screen,color,pygame.rect(a,b,rozmer_dlazd,rozmer_dlazd)) 
-
-    def eat_tile(self,coord,number,color):
-        self.draw_one_static_for_animation(coord,number,color,1.0)
-        pygame.display.flip()
-        pygame.time.wait(300)
-        self.draw_one_static_for_animation(coord,number,color,1.1)
-        pygame.display.flip()
-        pygame.time.wait(300)
-        self.screen.fill("black")
-        pygame.display.flip()
-        self.background()
-        self.draw_one_static_for_animation(coord,number,color,1.0)
-        pygame.display.flip()
-        pygame.time.wait(300)
-    
-
     def refresh_screen(self):
         self.screen.fill("black")
         self.background()
@@ -444,14 +405,6 @@ class Test(game_module.App): # App also on my Github
         pygame.display.flip()
         self.draw_grid_test(self.my_grid)
         self.on_loop()
-#        abc = self.detection_wrapper(self.my_grid,0) 
-###        print(self.my_grid,771)
- ###       abc = self.logic(self.my_grid,3)
-#        print(abc[0],768)
-#        print(abc[1],769)
-#        pygame.display.flip()
-#        abc = self.detection2([[1,1,2],[1,2,2],[1,3,4],[1,4,4]],1)
-#        print(abc)
         self.on_cleanup()
 
 
