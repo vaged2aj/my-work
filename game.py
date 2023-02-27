@@ -4,7 +4,7 @@ Created on Tue Feb  8 12:24:29 2023
 
 @author: Dalibor
 """
-
+# implementace hry 2048 s pygame
 
 
 import pygame
