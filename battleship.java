@@ -1,4 +1,4 @@
-//hra lode
+//hra lode podle zadani
 
 import java.util.Scanner;
 public class battleship{
