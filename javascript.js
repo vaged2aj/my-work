@@ -530,7 +530,7 @@ function vynulovat() {
 	console.log(typeof(mtab));
 	//if (!mtab == null) {
 	mtab.remove();
-//}
+
 	
 	if (!typeof(abcde)=="undefined") {
 	
